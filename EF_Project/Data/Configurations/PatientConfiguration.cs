@@ -1,9 +1,6 @@
 ﻿using EF_Project.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace EF_Project.Data.Configurations
 {
@@ -11,8 +8,9 @@ namespace EF_Project.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Patient> builder)
         {
-            builder.OwnsOne(p => p.Allergies);
-            builder.OwnsOne(p => p.ChronicConditions);
+
+            builder.Property(p => p.Allergies).HasMaxLength(1000);
+            builder.Property(p => p.ChronicConditions).HasMaxLength(1000);
         }
     }
 }

@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - MedCore</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col">
+    
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-[#0090FF] rounded-lg flex items-center justify-center shadow-md border border-blue-400">
+                        <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                        </svg>
+                    </div>
+                    <span class="text-xl font-extrabold tracking-tight text-slate-900">MedCore</span>
+                </div>
+
+                <nav class="hidden md:flex space-x-8">
+                    <a asp-controller="Patient" asp-action="FindDoctor" class="text-slate-500 hover:text-[#0090FF] font-medium text-sm flex items-center gap-2 transition-colors">
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                        Find a Doctor
+                    </a>
+                    <a asp-controller="Patient" asp-action="BookAppointment" class="text-slate-500 hover:text-[#0090FF] font-medium text-sm flex items-center gap-2 transition-colors">
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                        My Appointments
+                    </a>
+                    <a asp-controller="Patient" asp-action="MedicalRecords" class="text-slate-500 hover:text-[#0090FF] font-medium text-sm flex items-center gap-2 transition-colors">
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                        My Records
+                    </a>
+                    <a asp-controller="Patient" asp-action="Billing" class="text-slate-500 hover:text-[#0090FF] font-medium text-sm flex items-center gap-2 transition-colors">
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" /></svg>
+                        Billing
+                    </a>
+                </nav>
+
+                <div class="flex items-center">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div class="flex items-center gap-5">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-slate-200 overflow-hidden border border-slate-300">
+                                    <img src="https://ui-avatars.com/api/?name=@User.Identity.Name&background=random" alt="Avatar" class="w-full h-full object-cover" />
+                                </div>
+                                <span class="text-sm font-bold text-slate-700 hidden sm:block">@User.Identity.Name</span>
+                            </div>
+                            
+                            <div class="h-6 w-px bg-slate-200 hidden sm:block"></div> <form asp-controller="Account" asp-action="Logout" method="post" class="m-0">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="text-sm font-bold text-slate-500 hover:text-red-600 transition-colors flex items-center gap-1.5">
+                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
+                                Sign Out
+                            </button>
+                        </form>
+                    </div>
+                }
+                    else
+                {
+                    <a asp-controller="Account" asp-action="Login" class="text-sm font-bold text-[#0090FF] hover:text-blue-700">Sign In</a>
+                }
+            </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow w-full">
+        @RenderBody()
+    </main>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,158 @@
+﻿@{
+    ViewData["Title"] = "Welcome to MedCore";
+}
+
+<div class="relative bg-white overflow-hidden">
+    <div class="absolute inset-y-0 w-full h-full bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9IiNlMmU4ZjAiLz48L3N2Zz4=')] opacity-50 z-0"></div>
+    
+    <div class="max-w-7xl mx-auto relative z-10">
+        <div class="pb-8 bg-transparent sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32 pt-20 px-4 sm:px-6 lg:px-8">
+            <main class="mt-10 mx-auto max-w-7xl sm:mt-12 md:mt-16 lg:mt-20 xl:mt-28">
+                <div class="sm:text-center lg:text-left">
+                    <div class="inline-flex items-center px-4 py-1.5 rounded-full bg-blue-50 text-blue-700 text-xs font-bold border border-blue-100 mb-6 tracking-wide shadow-sm">
+                        <span class="w-2 h-2 rounded-full bg-blue-600 mr-2 animate-pulse"></span>
+                        Next-Generation Hospital Management
+                    </div>
+                    <h1 class="text-4xl tracking-tight font-extrabold text-slate-900 sm:text-5xl md:text-6xl leading-tight">
+                        <span class="block">Modern medicine,</span>
+                        <span class="block text-[#0090FF]">engineered simply.</span>
+                    </h1>
+                    <p class="mt-4 text-base text-slate-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0 leading-relaxed">
+                        MedCore bridges the gap between clinical precision and patient convenience. Book appointments instantly, access secure digital records, and experience seamless healthcare delivery.
+                    </p>
+                    <div class="mt-8 sm:flex sm:justify-center lg:justify-start gap-4">
+                        <div class="rounded-xl shadow-lg shadow-blue-500/20">
+                            <a asp-controller="Account" asp-action="Register" class="w-full flex items-center justify-center px-8 py-3.5 border border-transparent text-base font-bold rounded-xl text-white bg-[#0090FF] hover:bg-blue-600 md:py-4 md:text-lg md:px-10 transition-all hover:-translate-y-0.5">
+                                Join as Patient
+                            </a>
+                        </div>
+                        <div class="mt-3 sm:mt-0 rounded-xl shadow-sm">
+                            <a asp-controller="Account" asp-action="Login" class="w-full flex items-center justify-center px-8 py-3.5 border border-slate-200 text-base font-bold rounded-xl text-slate-700 bg-white hover:bg-slate-50 md:py-4 md:text-lg md:px-10 transition-colors">
+                                Doctor Portal Access
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    
+    <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 bg-gradient-to-br from-slate-50 to-blue-50/50 flex items-center justify-center p-12 z-10 border-l border-slate-100">
+        <div class="relative w-full max-w-lg aspect-square">
+            <div class="absolute inset-0 bg-gradient-to-br from-blue-100 to-indigo-50 rounded-[3rem] transform rotate-6 shadow-inner transition-transform hover:rotate-3 duration-700"></div>
+            <div class="absolute inset-0 bg-white rounded-[3rem] transform -rotate-3 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.05)] border border-slate-100 flex items-center justify-center p-8 transition-transform hover:rotate-0 duration-700">
+                <div class="grid grid-cols-2 gap-6 w-full h-full">
+                    <div class="bg-blue-50/80 rounded-2xl flex flex-col justify-end p-6 border border-blue-100/50">
+                        <div class="w-12 h-12 rounded-xl bg-blue-500 mb-4 shadow-sm"></div>
+                        <div class="h-3 w-1/2 bg-blue-200 rounded-full mb-2"></div>
+                        <div class="h-3 w-3/4 bg-blue-100 rounded-full"></div>
+                    </div>
+                    <div class="bg-slate-50 rounded-2xl border border-slate-100 p-6 flex flex-col gap-4 shadow-inner">
+                        <div class="h-24 w-full bg-slate-200 rounded-xl"></div>
+                        <div class="h-12 w-full bg-slate-100 rounded-xl mt-auto"></div>
+                    </div>
+                    <div class="bg-slate-50 rounded-2xl border border-slate-100 flex items-center justify-center shadow-inner">
+                        <svg class="w-20 h-20 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <div class="bg-green-50/80 rounded-2xl p-6 flex flex-col justify-between border border-green-100/50">
+                        <div class="h-3 w-1/3 bg-green-200 rounded-full"></div>
+                        <div class="w-full h-20 bg-green-100 rounded-xl"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="bg-[#0B1120] border-y border-slate-800">
+    <div class="max-w-7xl mx-auto py-12 px-4 sm:py-16 sm:px-6 lg:px-8 lg:py-16">
+        <div class="grid grid-cols-1 gap-10 sm:grid-cols-3">
+            <div class="text-center">
+                <span class="block text-4xl font-extrabold text-white">99.9%</span>
+                <span class="mt-2 block text-sm font-medium text-slate-400">System Uptime & Reliability</span>
+            </div>
+            <div class="text-center sm:border-l sm:border-slate-800">
+                <span class="block text-4xl font-extrabold text-white">256-bit</span>
+                <span class="mt-2 block text-sm font-medium text-slate-400">End-to-End Data Encryption</span>
+            </div>
+            <div class="text-center sm:border-l sm:border-slate-800">
+                <span class="block text-4xl font-extrabold text-[#0090FF]">Zero</span>
+                <span class="mt-2 block text-sm font-medium text-slate-400">Scheduling Conflicts</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="bg-slate-50 py-24 sm:py-32">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="mx-auto max-w-2xl lg:text-center mb-20">
+            <h2 class="text-base font-bold leading-7 text-[#0090FF] tracking-wider uppercase">Enterprise Architecture</h2>
+            <p class="mt-2 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">Everything you need to manage health efficiently</p>
+        </div>
+
+        <div class="mx-auto max-w-2xl lg:max-w-none">
+            <div class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
+                
+                <div class="flex flex-col bg-white p-10 rounded-[2rem] shadow-sm border border-slate-200 hover:shadow-xl hover:shadow-blue-500/5 transition-all duration-300 group">
+                    <div class="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 group-hover:scale-110 transition-transform">
+                        <svg class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold leading-8 text-slate-900">Smart Scheduling</h3>
+                    <p class="mt-4 flex-auto text-sm leading-relaxed text-slate-500">Our real-time concurrency algorithms mathematically prevent double-booking. View availability, select a time slot, and secure your appointment instantly.</p>
+                </div>
+
+                <div class="flex flex-col bg-white p-10 rounded-[2rem] shadow-sm border border-slate-200 hover:shadow-xl hover:shadow-green-500/5 transition-all duration-300 group">
+                    <div class="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-green-50 text-green-600 group-hover:scale-110 transition-transform">
+                        <svg class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m3.75 9v6m3-3H9m1.5-12H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold leading-8 text-slate-900">Digital Prescriptions</h3>
+                    <p class="mt-4 flex-auto text-sm leading-relaxed text-slate-500">Doctors utilize a high-fidelity consultation workspace to dynamically generate precise treatment plans and prescribe medications seamlessly.</p>
+                </div>
+
+                <div class="flex flex-col bg-white p-10 rounded-[2rem] shadow-sm border border-slate-200 hover:shadow-xl hover:shadow-purple-500/5 transition-all duration-300 group">
+                    <div class="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-purple-50 text-purple-600 group-hover:scale-110 transition-transform">
+                        <svg class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold leading-8 text-slate-900">Secure Medical Records</h3>
+                    <p class="mt-4 flex-auto text-sm leading-relaxed text-slate-500">Every appointment and prescription is permanently tethered to a secure, organized timeline accessible anytime from your personal dashboard.</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="bg-white">
+    <div class="max-w-5xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
+        <div class="bg-[#0090FF] rounded-3xl shadow-xl overflow-hidden relative">
+            <div class="absolute inset-0 opacity-10">
+                <svg class="h-full w-full" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 1463 360">
+                    <path class="text-white" fill="currentColor" d="M-82.673 72l1761.849 472.086-134.327 501.315-1761.85-472.086z" />
+                    <path class="text-blue-900" fill="currentColor" d="M-217.088 544.086L1544.761 72l134.327 501.316-1761.849 472.086z" />
+                </svg>
+            </div>
+            
+            <div class="relative px-6 py-16 sm:px-12 sm:py-20 lg:py-24 lg:px-16 flex flex-col items-center text-center">
+                <h2 class="text-3xl font-extrabold text-white tracking-tight sm:text-4xl">
+                    Ready to take control of your health?
+                </h2>
+                <p class="mt-4 max-w-2xl text-lg text-blue-100">
+                    Join thousands of patients and top-tier medical professionals already using MedCore to streamline their healthcare experience.
+                </p>
+                <div class="mt-10 flex flex-col sm:flex-row gap-4 w-full justify-center max-w-md">
+                    <a asp-controller="Account" asp-action="Register" class="w-full inline-flex items-center justify-center px-8 py-3.5 border border-transparent text-base font-bold rounded-xl text-[#0090FF] bg-white hover:bg-slate-50 shadow-md transition-colors">
+                        Create Free Account
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

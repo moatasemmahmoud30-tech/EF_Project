@@ -1,18 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace EF_Project.Models
 {
     public class Prescription : BaseEntity
     {
-        public string Dosage { get; set; }
-        public string Frequency { get; set; }
+        [MaxLength(1000)]
+        public string? GeneralNotes { get; set; }
+
 
         public int AppointmentId { get; set; }
-        public Appointment Appointment { get; set; }
+        public virtual Appointment Appointment { get; set; } = null!;
 
-        public int MedicationId { get; set; }
-        public Medication Medication { get; set; }
+        public virtual List<MedicalDetails> Items { get; set; } = new List<MedicalDetails>();
     }
 }

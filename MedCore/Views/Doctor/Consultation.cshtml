@@ -1,0 +1,167 @@
+﻿@model MedCore.ViewModels.ConsultationViewModel
+@using EF_Project.Models
+
+@{
+    ViewData["Title"] = "Consultation Workspace";
+    Layout = "~/Views/Shared/_DoctorLayout.cshtml";
+    List<Medication> medications = ViewBag.Medications as List<Medication>;
+    DateTime apptDate = ViewBag.AppointmentDate;
+}
+
+<div class="min-h-screen bg-[#f8fafc] py-8 px-4 sm:px-6 lg:px-8 font-sans pb-24">
+    <div class="max-w-6xl mx-auto space-y-6">
+        
+        <div class="flex items-center justify-between">
+            <a asp-action="Dashboard" class="inline-flex items-center text-sm font-bold text-slate-500 hover:text-blue-600 transition-colors">
+                &larr; Return to Dashboard
+            </a>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-slate-200 p-6 sm:p-8 flex flex-col lg:flex-row gap-8 justify-between">
+            <div class="flex items-center gap-5">
+                <div class="w-16 h-16 rounded-2xl bg-slate-100 flex items-center justify-center text-slate-500 text-2xl font-extrabold shadow-inner">
+                    @(string.IsNullOrWhiteSpace(Model.PatientName) ? "P" : Model.PatientName.Substring(0, 1))
+                </div>
+                <div>
+                    <h1 class="text-2xl font-extrabold text-slate-900 tracking-tight">@Model.PatientName</h1>
+                    <div class="flex flex-wrap gap-3 mt-2">
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-red-50 text-red-700 border border-red-100">
+                            Blood: @Model.BloodType
+                        </span>
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-orange-50 text-orange-700 border border-orange-100">
+                            Allergies: @Model.Allergies
+                        </span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex gap-4 lg:text-right">
+                <div class="bg-slate-50 rounded-xl p-3 border border-slate-100 min-w-[120px]">
+                    <div class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Chronic</div>
+                    <div class="text-sm font-bold text-slate-800">@Model.ChronicConditions</div>
+                </div>
+                <div class="bg-slate-50 rounded-xl p-3 border border-slate-100 min-w-[120px]">
+                    <div class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Time</div>
+                    <div class="text-sm font-bold text-blue-600">@apptDate.ToString("hh:mm tt")</div>
+                </div>
+            </div>
+        </div>
+
+        <form asp-action="CompleteConsultation" method="post" id="consultationForm">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="AppointmentId" />
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                
+                <div class="lg:col-span-1 space-y-6">
+                    <div class="bg-white rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-slate-200 p-6 h-full flex flex-col">
+                        <h2 class="text-lg font-bold text-slate-900 mb-4">Clinical Notes</h2>
+                        <textarea asp-for="GeneralNotes" rows="8" required class="flex-grow block w-full rounded-xl border-slate-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm p-4 border placeholder-slate-400 resize-none" placeholder="Enter diagnosis and consultation notes here..."></textarea>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-2 space-y-6">
+                    <div class="bg-white rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-slate-200 p-6">
+                        <h2 class="text-lg font-bold text-slate-900 mb-6 border-b border-slate-100 pb-4">Prescription Builder</h2>
+
+                        <div class="bg-slate-50 rounded-xl p-5 border border-slate-200 mb-6">
+                            <div class="grid grid-cols-1 sm:grid-cols-12 gap-4 items-end">
+                                <div class="sm:col-span-4">
+                                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Drug</label>
+                                    <select id="medSelect" class="block w-full rounded-xl border-slate-200 text-sm py-2 px-3 border bg-white">
+                                        <option value="">Select...</option>
+                                        @if (medications != null)
+                                        {
+                                            foreach (var med in medications)
+                                            {
+                                                <option value="@med.Id" data-name="@med.Name">@med.Name</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                                <div class="sm:col-span-3">
+                                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Dosage</label>
+                                    <input type="text" id="doseInput" class="block w-full rounded-xl border-slate-200 text-sm py-2 px-3 border" placeholder="e.g., 500mg" />
+                                </div>
+                                <div class="sm:col-span-3">
+                                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Frequency</label>
+                                    <input type="text" id="freqInput" class="block w-full rounded-xl border-slate-200 text-sm py-2 px-3 border" placeholder="e.g., Twice daily" />
+                                </div>
+                                <div class="sm:col-span-2">
+                                    <button type="button" onclick="addMedication()" class="w-full py-2 px-2 border border-slate-200 rounded-xl text-sm font-bold bg-white hover:bg-slate-50">+ Add</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <table class="min-w-full divide-y divide-slate-200">
+                            <thead>
+                                <tr>
+                                    <th class="pb-3 text-left text-xs font-bold text-slate-500 uppercase">Drug</th>
+                                    <th class="pb-3 text-left text-xs font-bold text-slate-500 uppercase">Dose & Freq</th>
+                                    <th class="pb-3 text-right text-xs font-bold text-slate-500 uppercase">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="prescriptionTableBody" class="divide-y divide-slate-100">
+                                <tr id="emptyStateRow"><td colspan="3" class="py-8 text-center text-sm text-slate-400 italic">No medications added yet.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 p-4 shadow-lg z-10">
+                <div class="max-w-6xl mx-auto flex justify-end">
+                    <button type="submit" class="py-3 px-8 rounded-xl shadow-md text-sm font-bold text-white bg-green-600 hover:bg-green-700 transition-colors">
+                        Finalize Prescription
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        let index = 0;
+
+        function addMedication() {
+            const select = document.getElementById('medSelect');
+            const doseInput = document.getElementById('doseInput');
+            const freqInput = document.getElementById('freqInput');
+            const tableBody = document.getElementById('prescriptionTableBody');
+            
+            const medId = select.value;
+            const medName = select.options[select.selectedIndex]?.getAttribute('data-name');
+            const dose = doseInput.value.trim();
+            const freq = freqInput.value.trim();
+
+            if (!medId || !dose || !freq) {
+                alert("Please fill out Drug, Dosage, and Frequency.");
+                return;
+            }
+
+            document.getElementById('emptyStateRow').style.display = 'none';
+
+            const tr = document.createElement('tr');
+            
+            tr.innerHTML = `
+                <td class="py-4 text-sm font-bold text-slate-900">
+                    ${medName}
+                    <input type="hidden" name="PrescriptionItems[${index}].MedicationId" value="${medId}" />
+                </td>
+                <td class="py-4 text-sm text-slate-600">
+                    ${dose} | ${freq}
+                    <input type="hidden" name="PrescriptionItems[${index}].Dosage" value="${dose}" />
+                    <input type="hidden" name="PrescriptionItems[${index}].Frequency" value="${freq}" />
+                </td>
+                <td class="py-4 text-right">
+                    <button type="button" onclick="this.closest('tr').remove()" class="text-red-500 hover:text-red-700 text-sm font-bold">Remove</button>
+                </td>
+            `;
+
+            tableBody.appendChild(tr);
+            select.value = ''; doseInput.value = ''; freqInput.value = '';
+            index++;
+        }
+    </script>
+}

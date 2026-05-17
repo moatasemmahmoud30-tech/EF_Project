@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace EF_Project.Models
 {
     public class DoctorSchedule : BaseEntity
     {
-        public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
-        public bool IsBooked { get; set; }
 
-        public int DoctorId { get; set; }
-        public Doctor Doctor { get; set; }
+        public int SlotDurationMinutes { get; set; } = 30;
 
-        public Appointment Appointment { get; set; }
+        public string DoctorId { get; set; } = string.Empty;
+        public Doctor Doctor { get; set; } = null!;
+
+        public virtual List<DailyAvailability> Availabilities { get; set; } = new List<DailyAvailability>();
     }
 }

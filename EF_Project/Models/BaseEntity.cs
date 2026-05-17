@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.ComponentModel.DataAnnotations;
 
 namespace EF_Project.Models
 {
@@ -8,10 +7,12 @@ namespace EF_Project.Models
     {
         public int Id { get; set; }
 
-        public byte[] Version { get; set; }
+        [Timestamp]
+        public byte[] RowVersion { get; set; } = Array.Empty<byte>();
 
+        public DateTime CreatedAt { get; set; }
         public DateTime LastModified { get; set; }
-        public bool IsDeleted { get; set; }
 
+        public bool IsDeleted { get; set; }
     }
 }

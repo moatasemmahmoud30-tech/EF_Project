@@ -1,0 +1,88 @@
+﻿@model IEnumerable<EF_Project.Models.Doctor>
+@using EF_Project.Models
+
+@{
+    ViewData["Title"] = "Find a Doctor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var specialties = ViewBag.Specialties as List<Speciality>;
+}
+
+<div class="min-h-screen bg-[#f8fafc] py-12 px-4 sm:px-6 lg:px-8 font-sans">
+    <div class="max-w-7xl mx-auto">
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+            <div>
+                <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">Our Specialists</h1>
+                <p class="mt-2 text-sm text-slate-500 max-w-2xl">Select a department and choose a date to check real-time availability for our top medical professionals.</p>
+            </div>
+            
+            <div class="flex gap-2 overflow-x-auto pb-2">
+                <a asp-action="FindDoctor" asp-route-specialtyId=""
+                       class="whitespace-nowrap px-4 py-2 rounded-xl text-sm font-bold transition-colors @(Context.Request.Query["specialtyId"].Count == 0 ? "bg-slate-800 text-white" : "bg-white text-slate-600 border border-slate-200 hover:bg-slate-50")">
+                    All Specialists
+                </a>
+                @if (specialties != null)
+                {
+                    foreach (var spec in specialties)
+                    {
+                        bool isActive = Context.Request.Query["specialtyId"] == spec.Id.ToString();
+                        <a asp-action="FindDoctor" asp-route-specialtyId="@spec.Id"
+                               class="whitespace-nowrap px-4 py-2 rounded-xl text-sm font-bold transition-colors @(isActive ? "bg-slate-800 text-white" : "bg-white text-slate-600 border border-slate-200 hover:bg-slate-50")">
+                            @spec.Name
+                        </a>
+                    }
+                }
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            @foreach (var doctor in Model)
+            {
+                <div class="bg-white rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] border border-slate-200 overflow-hidden flex flex-col transition-transform hover:-translate-y-1 hover:shadow-md duration-300">
+                    
+                    <div class="p-6 border-b border-slate-100 flex items-start gap-4">
+                        <div class="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 text-xl font-extrabold flex-shrink-0">
+                            @(string.IsNullOrWhiteSpace(doctor.ApplicationUser.FullName) ? "Dr" : doctor.ApplicationUser.FullName.Substring(0, 1))
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-900 leading-tight">Dr. @doctor.ApplicationUser.FullName</h3>
+                            <div class="inline-flex items-center mt-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-50 text-blue-700">
+                                @doctor.Speciality?.Name
+                            </div>
+                            <p class="text-xs text-slate-500 mt-2 flex items-center gap-1">
+                                <svg class="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                </svg>
+                                @doctor.YearsOfExperience Years Exp.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="p-6 bg-slate-50/50 flex-grow flex flex-col justify-end">
+                        <form asp-action="BookAppointment" method="get" class="space-y-4">
+                            <input type="hidden" name="doctorId" value="@doctor.ApplicationUserId" />
+                            
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Select Date</label>
+                                <input type="date" name="date" required min="@DateTime.Now.ToString("yyyy-MM-dd")" value="@DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")"
+                                       class="block w-full rounded-xl border-slate-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm py-2.5 px-4 border text-slate-700 bg-white" />
+                            </div>
+
+                            <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-sm text-sm font-bold text-white bg-[#0090FF] hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
+                                Check Availability
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            }
+
+            @if (!Model.Any())
+            {
+                <div class="col-span-full py-12 text-center border-2 border-dashed border-slate-200 rounded-2xl bg-white">
+                    <h3 class="mt-2 text-sm font-bold text-slate-900">No doctors found</h3>
+                    <p class="mt-1 text-sm text-slate-500">We currently do not have any specialists matching this criteria.</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>
